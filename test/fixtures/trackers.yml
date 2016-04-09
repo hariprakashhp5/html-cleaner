@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ticket_id: 1
+  created: MyString
+  eta: MyString
+  finished: MyString
+  owner: 
+  noc: 1
+  disc: MyString
+
+two:
+  ticket_id: 1
+  created: MyString
+  eta: MyString
+  finished: MyString
+  owner: 
+  noc: 1
+  disc: MyString

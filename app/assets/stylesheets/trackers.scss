@@ -1,0 +1,40 @@
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: auto;
+}
+
+
+th {
+  font-family: "Lucida Grande",arial,helvetica,sans-serif;
+  font-size: 12px;
+  padding: 6px;
+  border: 2px solid #999;
+  background: #78ccb7;
+  color: #00000;
+  text-align: center;
+  
+}
+
+
+ td {
+ text-align: center;
+  background-color: #FFF;
+  color: #424242;
+  height: 40px;
+  vertical-align: middle;
+  font-size: 14px;
+  border: 2px solid #999;
+  width: 14.2857142857143%;
+}
+
+.tdfield {
+  width:60px;
+  text-align:center;
+
+}
+
+.one{
+  width:100px;
+  height:30px;
+}

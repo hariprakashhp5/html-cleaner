@@ -1,0 +1,56 @@
+<%= form_for(@tracker) do |f| %>
+  <% if @tracker.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tracker.errors.count, "error") %> prohibited this tracker from being saved:</h2>
+
+      <ul>
+      <% @tracker.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :Ticket_id %><br>
+    <%= f.number_field :ticket_id, class: "one" %>
+  </div>
+  <div class="field">
+    <%= f.label :Created %><br>
+    <%= f.text_field :created, class: "one" %>
+  </div>
+  <div class="field">
+    <%= f.label :ETA %><br>
+    <%= f.text_field :eta, class: "one" %>
+  </div>
+  <div class="field">
+    <%= f.label :Finished %><br>
+    <%= f.text_field :finished, class: "one" %>
+  </div>
+  <div class="field">
+    <%= f.label :Ticket_Owner %><br>
+    <%= f.text_field :owner, class: "one"%>
+  </div>
+  <div class="field">
+    <%= f.label :Type_of_work %><br>
+    <%#= f.text_field :tow, class: "one"%>
+    <%=f.select :tow, options_for_work,{}, class: "one"%>
+  </div>
+  <div class="field">
+    <%= f.label :Num_of_Commits %><br>
+    <%= f.number_field :noc, class: "one"%>
+  </div>
+  <div class="field">
+    <%= f.label :Staging %><br>
+    <%= f.text_field :staging, class: "one"%>
+  </div>
+  
+  <div class="field">
+    <%= f.label :Description %><br>
+    <%= f.text_area :disc, class: "one"%>
+  </div>
+  <div style="clear:both"></div>
+  <div class="actions">
+    <%= f.submit "Save"%>
+  </div>
+<% end %>
