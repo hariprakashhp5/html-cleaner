@@ -1,39 +1,16 @@
-<p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Ticket:</strong>
-  <%= @tracker.ticket_id %>
+  <strong>Pull Request:</strong><br>
+  <textarea style="height:100px; width:900px;">Hi Raji,
+
+Please pull the staging candidate group "<%= @tracker.staging %>" for changes done in gamma.</textarea>
 </p>
+
 
 <p>
-  <strong>Created:</strong>
-  <%= @tracker.created %>
+  <strong>Live:</strong><br>
+  <textarea style="height:100px; width:500px;">Hi <%= @tracker.owner %>,
+
+Changes are live in Production.</textarea>
 </p>
 
-<p>
-  <strong>Eta:</strong>
-  <%= @tracker.eta %>
-</p>
-
-<p>
-  <strong>Finished:</strong>
-  <%= @tracker.finished %>
-</p>
-
-<p>
-  <strong>Owner:</strong>
-  <%= @tracker.owner %>
-</p>
-
-<p>
-  <strong>Noc:</strong>
-  <%= @tracker.noc %>
-</p>
-
-<p>
-  <strong>Disc:</strong>
-  <%= @tracker.disc %>
-</p>
-
-<%= link_to 'Edit', edit_tracker_path(@tracker) %> |
-<%= link_to 'Back', trackers_path %>

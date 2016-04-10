@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   resources :trackers
 
   root :to => 'trackers#current'
+  get 'status' => 'trackers#status'
+  get 'delete_all' => 'trackers#remove'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

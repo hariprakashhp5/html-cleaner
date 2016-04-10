@@ -25,7 +25,30 @@ th {
   vertical-align: middle;
   font-size: 14px;
   border: 2px solid #999;
-  width: 14.2857142857143%;
+  /*width: 14.2857142857143%;*/
+
+  a{
+  color: #666;
+  
+  &:hover {
+    color: red;
+    
+  }
+  }
+}
+
+ a {
+   text-decoration:none;
+    color: #666;
+
+  &:visited {
+   
+  }
+
+  &:hover {
+    color: #000;
+    
+  }
 }
 
 .tdfield {
@@ -37,4 +60,33 @@ th {
 .one{
   width:100px;
   height:30px;
+}
+
+.status{
+  font-family: "Lucida Grande",arial,helvetica,sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 6px;
+  border: 2px solid #999;
+  background: #78ccb7;
+  color: #00000;
+  text-align: center;
+  float: right;
+  margin: 5px 0 5px 5px;
+}
+.container{
+  height:30px;
+  border: 2px solid #999;
+  width: 0 auto;
+  padding: 5px 0 3px 0;
+  background: #78ccb7;
+.top{
+  font-family: "Lucida Grande",arial,helvetica,sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+   float: left;
+   margin: 5px 5px 5px 5px;
+
+  
+}
 }

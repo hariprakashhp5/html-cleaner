@@ -4,19 +4,39 @@ class TrackersController < ApplicationController
   # GET /trackers
   # GET /trackers.json
   def index
-    @trackers = Tracker.all
+    stats=Tracker.all.pluck("comp")
+    @ontime=stats.count("On Time")
+    @delay=stats.count("> ETA")
+    @early=stats.count("< ETA")
+    @trackers = Tracker.all.order(created_at: :desc)
     
   end
 
   def current
+    #  @ontime=Tracker.where("comp = ?", "On Time").count
+    # @delay=Tracker.where("comp = ?", "> ETA").count
+    # @early=Tracker.where("comp = ?", "< ETA").count
     @tracker = Tracker.new
-    @trackers = Tracker.where('created_at > ? AND created_at < ?', Date.yesterday.beginning_of_day, Date.today.end_of_day).order(created_at: :desc)# => .sort_by &:created_at
+    @trackers = Tracker.where('created_at > ? AND created_at < ?', Date.yesterday.beginning_of_day, Date.today.end_of_day).order(created_at: :desc)
+    stats=@trackers.pluck("comp")
+    @ontime=stats.count("On Time")
+    @delay=stats.count("> ETA")
+    @early=stats.count("< ETA")
    # Tracker.where("created_at between ? and ?", Date.yesterday.beginning_of_day, Date.today.end_of_day)
   end
 
-  # GET /trackers/1
+
+  def status
+    @trackers = Tracker.all
+    @ontime=Tracker.where("comp = ?", "On Time").count
+    @delay=Tracker.where("comp = ?", "> ETA").count
+    @early=Tracker.where("comp = ?", "< ETA").count
+  end
+
+    # GET /trackers/1
   # GET /trackers/1.json
   def show
+    
   end
 
   # GET /trackers/new
@@ -77,7 +97,7 @@ def completed
       @complt="> ETA"
     end
     puts "oooo====#{@complt}"
-@tracker.update(:comp => @complt)
+@tracker.update(:comp => @complt) 
 end
 end
 
@@ -90,6 +110,11 @@ end
       format.html { redirect_to trackers_url, notice: 'Tracker was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def remove
+    Tracker.delete_all
+    redirect_to '/'
   end
 
   private

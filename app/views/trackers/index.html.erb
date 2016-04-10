@@ -3,10 +3,24 @@
 
 <h1 style="text-align:center;">All Tickets</h1>
 
+<div class="status">
+  <span>Over ETA:</span> <%=@delay%>
+</div>
+
+<div class="status">
+  <span>Within:</span> <%=@early%>
+</div>
+
+<div class="status">
+  <span>On ETA:</span> <%=@ontime%>
+</div>
+
+<div style="clear:both"></div>
 <table>
   <thead>
     <tr>
-      <th>Ticket ID</th>
+      <th>Date</th>
+      <th colspan="2">Ticket ID</th>
       <th>Ticket Owner</th>
       <th>Created</th>
       <th>ETA</th>
@@ -14,7 +28,7 @@
       <th>Type of Work</th>
       <th>No. of Commits</th>
       <th>Staging</th>
-      <th>Completed</th>
+    <!--   <th>Completed</th> -->
       <th>Description</th>
       <th colspan="3"></th>
     </tr>
@@ -23,7 +37,8 @@
   <tbody>
     <% @trackers.each do |tracker| %>
       <tr>
-        <td ><a href="https://bankbazaarmail.zendesk.com/agent/tickets/<%= tracker.ticket_id%>"><%= tracker.ticket_id%></a></td>
+        <td><%=tracker.created_at.strftime("%d-%m-%y")%></td>
+        <td ><%= best_in_place tracker, :ticket_id, :inner_class => "tdfield" %><td width="20px;">   <a target="_blank" href="https://bankbazaarmail.zendesk.com/agent/tickets/<%= tracker.ticket_id%>">Open</a></td></td>
         <td ><%= best_in_place tracker, :owner, :inner_class => "tdfield" %></td>
                   <td ><%= best_in_place tracker, :created, :inner_class => "tdfield" %></td>
         <td ><%= best_in_place tracker, :eta, :inner_class => "tdfield"%></td>
@@ -31,11 +46,11 @@
         <td ><%=  best_in_place tracker, :tow, :inner_class => "tdfield"%></td>
         <td ><%= best_in_place tracker, :noc, :inner_class => "tdfield"%></td>
         <td ><%= best_in_place tracker, :staging, :inner_class => "tdfield"%></td>
-        <td ><%= tracker.comp %></td>
+        <!-- <td ><%= tracker.comp %></td> -->
         <td ><%= best_in_place tracker, :disc, :as => :textarea%></td>
-        <!-- <td><%#= link_to 'Show', tracker %></td>
-        <td><%#= link_to 'Edit', edit_tracker_path(tracker) %></td> -->
-        <td><%= link_to 'Destroy', tracker, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', tracker %></td>
+        <!-- <td><%#= link_to 'Edit', edit_tracker_path(tracker) %></td> -->
+        <!-- <td><%#= link_to 'Destroy', tracker, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
       </tr>
     <% end %>
   </tbody>
