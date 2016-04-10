@@ -44,3 +44,5 @@ group :development, :test do
 end
 gem 'best_in_place'
 
+gem 'puma'
+

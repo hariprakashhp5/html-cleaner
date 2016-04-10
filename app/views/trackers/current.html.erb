@@ -1,11 +1,12 @@
-<%#= render :partial => "/trackers/form.html.erb"%>
+<%= render :partial => "/trackers/form.html.erb"%>
 <p id="notice"><%= notice %></p>
 
-<h1 style="text-align:center;">All Tickets</h1>
+<h1 style="text-align:center;">Recent Tickets</h1>
 
 <table>
   <thead>
     <tr>
+      <th>Date</th>
       <th>Ticket ID</th>
       <th>Ticket Owner</th>
       <th>Created</th>
@@ -23,6 +24,7 @@
   <tbody>
     <% @trackers.each do |tracker| %>
       <tr>
+        <td><%=tracker.created_at.strftime("%d-%m-%y")%></td>
         <td ><a href="https://bankbazaarmail.zendesk.com/agent/tickets/<%= tracker.ticket_id%>"><%= tracker.ticket_id%></a></td>
         <td ><%= best_in_place tracker, :owner, :inner_class => "tdfield" %></td>
                   <td ><%= best_in_place tracker, :created, :inner_class => "tdfield" %></td>
@@ -33,9 +35,7 @@
         <td ><%= best_in_place tracker, :staging, :inner_class => "tdfield"%></td>
         <td ><%= tracker.comp %></td>
         <td ><%= best_in_place tracker, :disc, :as => :textarea%></td>
-        <!-- <td><%#= link_to 'Show', tracker %></td>
-        <td><%#= link_to 'Edit', edit_tracker_path(tracker) %></td> -->
-        <td><%= link_to 'Destroy', tracker, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <td><%= link_to 'Destroy', tracker, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -43,4 +43,4 @@
 
 <br>
 
-<%#= link_to 'New Tracker', new_tracker_path %>
+

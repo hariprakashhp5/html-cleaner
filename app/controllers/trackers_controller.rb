@@ -5,7 +5,13 @@ class TrackersController < ApplicationController
   # GET /trackers.json
   def index
     @trackers = Tracker.all
+    
+  end
+
+  def current
     @tracker = Tracker.new
+    @trackers = Tracker.where('created_at > ? AND created_at < ?', Date.yesterday.beginning_of_day, Date.today.end_of_day).order(created_at: :desc)# => .sort_by &:created_at
+   # Tracker.where("created_at between ? and ?", Date.yesterday.beginning_of_day, Date.today.end_of_day)
   end
 
   # GET /trackers/1
@@ -30,7 +36,7 @@ class TrackersController < ApplicationController
 
     respond_to do |format|
       if @tracker.save
-        format.html { redirect_to '/trackers', notice: 'Tracker was successfully created.' }
+        format.html { redirect_to :root, notice: 'Tracker was successfully created.' }
         format.json { render :index, status: :created, location: @tracker }
       else
         format.html { render :new }
@@ -51,7 +57,30 @@ class TrackersController < ApplicationController
         format.json { render json: @tracker.errors, status: :unprocessable_entity }
       end
     end
+    completed
   end
+
+def completed
+  @com=Tracker.where("id=?",params[:id]).pluck("finished").last
+  if @com != ""
+    @eta=Tracker.where("id=?",params[:id]).pluck("eta").last
+    @a=Date.parse(@eta)
+    @b=Date.parse(@com)
+    puts @a
+    puts @b
+    @c=(@a-@b).to_i
+    if @c>0
+      @complt="+"
+    elsif @c==0
+      @complt="0"
+    elsif @c<0
+      @complt="-"
+    end
+    puts "oooo====#{@complt}"
+@tracker.update(:comp => @complt)
+end
+end
+
 
   # DELETE /trackers/1
   # DELETE /trackers/1.json
