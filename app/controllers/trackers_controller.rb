@@ -70,11 +70,11 @@ def completed
     puts @b
     @c=(@a-@b).to_i
     if @c>0
-      @complt="+"
+      @complt="< ETA"
     elsif @c==0
-      @complt="0"
+      @complt="On Time"
     elsif @c<0
-      @complt="-"
+      @complt="> ETA"
     end
     puts "oooo====#{@complt}"
 @tracker.update(:comp => @complt)
