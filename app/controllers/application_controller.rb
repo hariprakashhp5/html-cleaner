@@ -4,5 +4,15 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
 
+helper_method :pending
 
+ def pending
+    @pendings=Tracker.where("finished=?", "")
+    @p_count=@pendings.count
+    return @p_count
+end
+
+def search
+	@res=Tracker.where("ticket_id LIKE ?", "%#{params[:ticket_id]}%")
+end
 end

@@ -13,9 +13,6 @@ class TrackersController < ApplicationController
   end
 
   def current
-    #  @ontime=Tracker.where("comp = ?", "On Time").count
-    # @delay=Tracker.where("comp = ?", "> ETA").count
-    # @early=Tracker.where("comp = ?", "< ETA").count
     @tracker = Tracker.new
     @trackers = Tracker.where('created_at > ? AND created_at < ?', Date.yesterday.beginning_of_day, Date.today.end_of_day).order(created_at: :desc)
     stats=@trackers.pluck("comp")
@@ -27,12 +24,37 @@ class TrackersController < ApplicationController
 
 
   def status
+   @date = params[:month] ? Date.parse(params[:month]) : Date.today
+    puts "one===#{@date.strftime("%-m-%y")}"
+    puts "two===#{@date.end_of_month.end_of_day}"
+ # @dat = Tracker.where('created_at > ? AND created_at < ?', @date.beginning_of_day, @date.end_of_month.end_of_day)
+ @dat=Tracker.where("finished LIKE ?", "%#{@date.strftime("%-m-%y")}%")
+stats=@dat.pluck("comp")
+ @this_month_neutral=stats.count("On Time")
+ @this_month_delay=stats.count("> ETA")
+@this_month_early=stats.count("< ETA")
+
+  
+  # @dat_by_date = @dat.group_by(&:finished)
+  # @mon = { 1=>"January", 2=>"Februrary", 3 =>"March", 4=>"April", 
+  #           5=>"May", 6=>"June", 7=>"July", 8=>"Augest", 
+  #            9=>"September", 10=>"October", 11=>"November", 12=>"December"} 
+  #            p = Time.now
+  #    n = p.month
+  # @previous = @mon[n-1]
+  # @next = @mon[n+1] 
+
     @trackers = Tracker.all
     @ontime=Tracker.where("comp = ?", "On Time").count
     @delay=Tracker.where("comp = ?", "> ETA").count
     @early=Tracker.where("comp = ?", "< ETA").count
   end
 
+  # def pending{
+  #   @pendings=Tracker.where("finished=?", "")
+  #   @p_count=@pendings.count
+  # }
+#end
     # GET /trackers/1
   # GET /trackers/1.json
   def show

@@ -62,7 +62,7 @@ th {
   height:30px;
 }
 
-.status{
+.status,.pull-left{
   font-family: "Lucida Grande",arial,helvetica,sans-serif;
   font-size: 12px;
   font-weight: bold;
@@ -89,4 +89,14 @@ th {
 
   
 }
+}
+
+.half{
+  width: 50%;
+  margin: 0 auto;
+}
+
+.pull-left{
+  margin: 5px 5px 5px 0;
+  float:left;
 }

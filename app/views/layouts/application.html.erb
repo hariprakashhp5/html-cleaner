@@ -14,6 +14,11 @@
 	<div class="top"><a href="/trackers">All Tickets</a></div>
 	<div class="top"><a href="/status">Status</a></div>
 
+
+<%#= form_tag url_for(:controller=>"application",:action =>"search") ,:method=>"get" do %>
+	<!-- <input style="width:120px; float:right;" name="ticket_id" ></input>
+	<%#end%> -->
+
 	<div style="clear:both"></div></div><br>
 <%= yield %>
 
