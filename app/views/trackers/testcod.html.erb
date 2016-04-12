@@ -1,0 +1,6 @@
+<%= form_tag url_for(:controller=>"trackers",:action =>"testcod") ,:method=>"get" do %>
+	<textarea style="width:800px; height:200px;" name="content" ></textarea>
+	 <%= submit_tag 'Bundle'%>
+	<%end%>
+
+<textarea style="width:800px; height:200px;"><%=@bundle_out%></textarea>

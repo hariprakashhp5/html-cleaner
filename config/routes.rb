@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'status' => 'trackers#status'
   get 'delete_all' => 'trackers#remove'
   get 'search' => 'application#search'
+  get 'wrapper' => 'trackers#testcod'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

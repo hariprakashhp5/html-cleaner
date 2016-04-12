@@ -22,12 +22,17 @@ class TrackersController < ApplicationController
    # Tracker.where("created_at between ? and ?", Date.yesterday.beginning_of_day, Date.today.end_of_day)
   end
 
+def testcod
+    if params[:content] != nil
+  @bundle_out=params[:content].split(" ").join("")
+end
+end
+
+
 
   def status
    @date = params[:month] ? Date.parse(params[:month]) : Date.today
-    puts "one===#{@date.strftime("%-m-%y")}"
-    puts "two===#{@date.end_of_month.end_of_day}"
- # @dat = Tracker.where('created_at > ? AND created_at < ?', @date.beginning_of_day, @date.end_of_month.end_of_day)
+     # @dat = Tracker.where('created_at > ? AND created_at < ?', @date.beginning_of_day, @date.end_of_month.end_of_day)
  @dat=Tracker.where("finished LIKE ?", "%#{@date.strftime("%-m-%y")}%")
 stats=@dat.pluck("comp")
  @this_month_neutral=stats.count("On Time")
@@ -108,9 +113,7 @@ def completed
     @eta=Tracker.where("id=?",params[:id]).pluck("eta").last
     @a=Date.parse(@eta)
     @b=Date.parse(@com)
-    puts @a
-    puts @b
-    @c=(@a-@b).to_i
+        @c=(@a-@b).to_i
     if @c>0
       @complt="< ETA"
     elsif @c==0
