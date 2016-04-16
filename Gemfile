@@ -44,7 +44,7 @@ group :development, :test do
 end
 gem 'best_in_place'
 
-#gem 'puma'
+gem 'puma'
 
 gem 'docx', '~> 0.2.07'
 
