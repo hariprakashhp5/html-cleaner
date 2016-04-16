@@ -31,8 +31,9 @@ def posttestcod
     #@bundle_out=bundle_out.gsub(/<[[:alpha:]]+(>| >)(\\s|&nbsp;)+<\/[[:alpha:]]+>/,"").split(" ").join(" "), <li>.*<p>
 
       nogo={'<li> <p>'=>'<li>', '</p> </li>' => '</li>', '<td> <p>' => '<td>', '</p> </td>' => '</td>',
-      '<p> </p>' => '', '</p>' => "</p>\n", '</ul>' => "</ul>\n", '</ol>' => "</ol>\n", '</tr>' => "</tr>\n", 
-      '</table>'=>"</table>\n", '&lt;' => '<', '&gt;'=>'>', '</h1>' => "</h1>\n", '</h2>' => "</h2>\n", '</h3>' => "</h3>\n"}
+      '<p> </p>' => '','</p>' => "</p>\n", '</ul>' => "</ul>\n", '</ol>' => "</ol>\n", '</tr>' => "</tr>\n", 
+      '</table>'=>"</table>\n", '&lt;' => '<', '&gt;'=>'>', '</h1>' => "</h1>\n", '</h2>' => "</h2>\n", 
+      '</h3>' => "</h3>\n", '<br>' => '','<p></p>' => ''}
       c=params[:content]
       bundle_out=Sanitize.fragment(c,Sanitize::Config.merge(Sanitize::Config::BASIC,
       :elements=> Sanitize::Config::BASIC[:elements]+['table', 'tbody', 'tr', 'td', 'h1', 'h2', 'h3'],
