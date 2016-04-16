@@ -5,7 +5,12 @@ Rails.application.routes.draw do
   get 'status' => 'trackers#status'
   get 'delete_all' => 'trackers#remove'
   get 'search' => 'application#search'
-  get 'wrapper' => 'trackers#testcod'
+  
+  #match 'wrapper' => 'trackers#testcod'#, via:[:get, :post]
+  get 'cleaner' => 'trackers#testcod'
+  post 'cleaner/done' => 'trackers#posttestcod'
+  #get 'cleaner' => 'trackers#cleaner'
+ # post 'cleaner' => 'trackers#htmlclnr'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

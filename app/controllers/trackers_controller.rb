@@ -23,10 +23,57 @@ class TrackersController < ApplicationController
   end
 
 def testcod
-    if params[:content] != nil
-  @bundle_out=params[:content].split(" ").join("")
 end
+
+def posttestcod
+    #@bundle_out=params[:content]
+    #@bundle_out=params[:content].gsub(/(?:style|class|width|cellspacing|cellpadding|valign)="[\p{Print}]+"/,"")
+    #@bundle_out=bundle_out.gsub(/<[[:alpha:]]+(>| >)(\\s|&nbsp;)+<\/[[:alpha:]]+>/,"").split(" ").join(" "), <li>.*<p>
+
+      nogo={'<li> <p>'=>'<li>', '</p> </li>' => '</li>', '<td> <p>' => '<td>', '</p> </td>' => '</td>',
+      '<p> </p>' => '', '</p>' => "</p>\n", '</ul>' => "</ul>\n", '</ol>' => "</ol>\n", '</tr>' => "</tr>\n", 
+      '</table>'=>"</table>\n", '&lt;' => '<', '&gt;'=>'>', '</h1>' => "</h1>\n", '</h2>' => "</h2>\n", '</h3>' => "</h3>\n"}
+      c=params[:content]
+      bundle_out=Sanitize.fragment(c,Sanitize::Config.merge(Sanitize::Config::BASIC,
+      :elements=> Sanitize::Config::BASIC[:elements]+['table', 'tbody', 'tr', 'td', 'h1', 'h2', 'h3'],
+      :attributes=>{'a' => ['href']}) ).split(" ").join(" ")
+      re = Regexp.new(nogo.keys.map { |x| Regexp.escape(x) }.join('|'))
+      @bundle_out=bundle_out.gsub(re, nogo)
 end
+
+# def cleaner
+# end
+
+# def htmlclnr
+#       if params[:content] != nil
+#       driver = Selenium::WebDriver.for :firefox
+#       puts "browser open"
+#       driver.navigate.to "http://www.html-cleaner.com/" 
+#       puts "waiting fo element"
+#       wait = Selenium::WebDriver::Wait.new(:timeout => 1000)
+#       wait.until { driver.find_element(:id => "elm1_ifr").displayed? }
+#       puts "found"
+#       driver.find_element(:id => "optionButton15").click
+#       driver.find_element(:id => "optionButton5").click
+#       driver.find_element(:id => "optionButton16").click
+#       puts "switching"
+#       driver.switch_to.frame('elm1_ifr')
+#       puts "switched"
+#       driver.find_element(:id=>'tinymce').clear
+#       driver.find_element(:id=>'tinymce').send_key params[:content]
+# driver.switch_to.default_content
+# driver.find_element(:id => "cleanButtonText").click
+# @onestep=driver.find_elements(:css =>".CodeMirror-code > div > pre > span")
+# #puts "bbb===#{@onestep}"  
+# @onestep.each do |tagged|
+#   @tag=tagged.attribute("textContent").split(" ").join(" ")
+# end
+# puts @tag
+# #driver.find_element(:class => "CodeMirror-scroll").click
+# #driver.keyboard.send_keys [:control, "a"]
+# #@output=driver.keyboard.send_keys [:control, "c"]
+# end
+#     end
 
 
 
@@ -156,4 +203,6 @@ end
 
     def interlink
     end
+
+
 end

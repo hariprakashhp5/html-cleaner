@@ -24,7 +24,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+ gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -44,7 +44,17 @@ group :development, :test do
 end
 gem 'best_in_place'
 
-gem 'puma'
+#gem 'puma'
 
 gem 'docx', '~> 0.2.07'
 
+gem 'selenium-webdriver', '~> 2.48'
+
+gem 'mechanize'
+
+#gem 'text-format', '~> 1.0'
+
+gem 'msworddoc-extractor'#, :git =>'git://github.com/dayflower/msworddoc-extractor.git'
+gem 'yui-rails'
+gem 'tinymce-rails'
+gem 'sanitize'

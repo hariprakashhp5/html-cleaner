@@ -9,7 +9,7 @@ th {
   font-family: "Lucida Grande",arial,helvetica,sans-serif;
   font-size: 12px;
   padding: 6px;
-  border: 2px solid #999;
+  border: 1px solid #999;
   background: #78ccb7;
   color: #00000;
   text-align: center;
@@ -24,7 +24,7 @@ th {
   height: 40px;
   vertical-align: middle;
   font-size: 14px;
-  border: 2px solid #999;
+  border: 1px solid #999;
   /*width: 14.2857142857143%;*/
 
   a{
@@ -76,7 +76,7 @@ th {
 }
 .container{
   height:30px;
-  border: 2px solid #999;
+  border: 1px solid #999;
   width: 0 auto;
   padding: 5px 0 3px 0;
   background: #78ccb7;
@@ -96,6 +96,12 @@ th {
   margin: 0 auto;
 }
 
+
+.half-one{
+  width: 90%;
+  margin: 0 auto;
+}
+
 .pull-left{
   margin: 5px 5px 5px 0;
   float:left;
@@ -106,4 +112,16 @@ th {
   width:50%;
   height:500px;
   border:2px solid red;
+}
+
+.btn-submit {
+color: #FFFFFF;
+width:100%;
+font-size: 15px;
+text-transform: uppercase;
+/*background: #c91717;*/
+background: #666;
+padding: 10px 10px;
+border: 0;
+margin-top: 6px;
 }

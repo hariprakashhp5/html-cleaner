@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>TicketTrack</title>
+	<%= favicon_link_tag %>
+  <title>Tracker</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
@@ -13,8 +14,8 @@
 </div>
 	<div class="top"><a href="/trackers">All Tickets</a></div>
 	<div class="top"><a href="/status">Status</a></div>
-	<div class="top"><a href="/wrapper">Wrapper</a></div>
-
+	<div class="top"><a href="/cleaner">Cleaner</a></div>
+	
 
 
 <%#= form_tag url_for(:controller=>"application",:action =>"search") ,:method=>"get" do %>
