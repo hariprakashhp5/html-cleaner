@@ -5,6 +5,7 @@ def new
 end
 
 def index
+	require_admin 
 @users=User.all
 end
 
@@ -16,9 +17,12 @@ redirect_to '/users'
 end
 
 def create 
+	puts "name===#{params[:name]}"
+	puts "ems===#{params[:email]}"
+	puts "pass===#{params[:password]}"
 @user = User.new(user_params) 
 if @user.save 
-UserMailer.registration_confirmation(@user).deliver
+#UserMailer.registration_confirmation(@user).deliver
 #session[:user_id] = @user.id 
 redirect_to '/login' 
 else 
@@ -26,6 +30,22 @@ redirect_to '/signup'
 end 
 end
 
+def edit
+end
+
+# PATCH/PUT /trackers/1
+  # PATCH/PUT /trackers/1.json
+  def update
+    respond_to do |format|
+      if User.find(params[:id]).update(user_params)
+        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.json { render :index, status: :ok, location: @user }
+      else
+        format.html { render :edit }
+        format.json { render json: @tracker.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
 def edit_pass
 @user_pass = current_user
@@ -44,7 +64,7 @@ end
 
 private
 def user_params
-params.require(:user).permit(:first_name, :last_name, :email, :mobile_number, :password, :password_confirmation)
+params.require(:user).permit(:name, :role, :email, :password_digest, :password)
 end
 
 def user_params1

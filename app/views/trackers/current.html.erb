@@ -3,22 +3,14 @@
 
 <h1 style="text-align:center;">Recent Tickets</h1>
 
-<div class="pull-left">
-    <span>Pending:</span> <%=pending%>
-  </div>
+<div class="pull-left"><span>Pending:</span> <%=pending%></div>
 
+<div class="status"><span>Outbound:</span> <%=@delay%></div>
 
-<div class="status">
-  <span>Over ETA:</span> <%=@delay%>
-</div>
+<div class="status"><span>Neutral:</span> <%=@ontime%></div>
 
-<div class="status">
-  <span>Within:</span> <%=@early%>
-</div>
+<div class="status"><span>Inbound:</span> <%=@early%></div>
 
-<div class="status">
-  <span>On ETA:</span> <%=@ontime%>
-</div>
 
 <div style="clear:both"></div>
 <table>

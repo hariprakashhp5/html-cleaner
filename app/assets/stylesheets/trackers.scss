@@ -80,14 +80,15 @@ th {
   width: 0 auto;
   padding: 5px 0 3px 0;
   background: #78ccb7;
-.top{
+.top-left, .top-right{
   font-family: "Lucida Grande",arial,helvetica,sans-serif;
   font-size: 15px;
   font-weight: bold;
    float: left;
    margin: 5px 5px 5px 5px;
-
-  
+}
+.top-right{
+  float:right;
 }
 }
 

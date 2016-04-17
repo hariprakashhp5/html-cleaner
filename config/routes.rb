@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   resources :trackers
-
-  root :to => 'trackers#current'
+  get 'home' => 'trackers#current'
   get 'status' => 'trackers#status'
   get 'delete_all' => 'trackers#remove'
   get 'search' => 'application#search'
@@ -10,7 +9,20 @@ Rails.application.routes.draw do
   get 'cleaner' => 'trackers#testcod'
   post 'cleaner/done' => 'trackers#posttestcod'
   #get 'cleaner' => 'trackers#cleaner'
- # post 'cleaner' => 'trackers#htmlclnr'
+  # post 'cleaner' => 'trackers#htmlclnr'
+
+  resources :users
+  get 'signup'  => 'users#new' 
+  
+
+  resources :sessions
+  get 'login' => 'sessions#new'
+  post 'login' => 'sessions#create'
+  delete 'logout' => 'sessions#destroy'
+  root :to => 'sessions#new'
+   
+
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

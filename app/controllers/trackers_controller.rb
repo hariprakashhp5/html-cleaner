@@ -4,17 +4,19 @@ class TrackersController < ApplicationController
   # GET /trackers
   # GET /trackers.json
   def index
-    stats=Tracker.all.pluck("comp")
+    require_user
+    stats=Tracker.where('uid=?',user).pluck("comp")
     @ontime=stats.count("On Time")
     @delay=stats.count("> ETA")
     @early=stats.count("< ETA")
-    @trackers = Tracker.all.order(created_at: :desc)
+    @trackers = Tracker.where('uid=?',user).order(created_at: :desc)
     
   end
 
   def current
+    require_user
     @tracker = Tracker.new
-    @trackers = Tracker.where('created_at > ? AND created_at < ?', Date.yesterday.beginning_of_day, Date.today.end_of_day).order(created_at: :desc)
+    @trackers = Tracker.where('uid=? and created_at > ? AND created_at < ?', user, Date.yesterday.beginning_of_day, Date.today.end_of_day).order(created_at: :desc)
     stats=@trackers.pluck("comp")
     @ontime=stats.count("On Time")
     @delay=stats.count("> ETA")
@@ -79,28 +81,33 @@ end
 
 
   def status
-   @date = params[:month] ? Date.parse(params[:month]) : Date.today
-     # @dat = Tracker.where('created_at > ? AND created_at < ?', @date.beginning_of_day, @date.end_of_month.end_of_day)
- @dat=Tracker.where("finished LIKE ?", "%#{@date.strftime("%-m-%y")}%")
-stats=@dat.pluck("comp")
- @this_month_neutral=stats.count("On Time")
- @this_month_delay=stats.count("> ETA")
-@this_month_early=stats.count("< ETA")
+    require_user
+      @date = params[:month] ? Date.parse(params[:month]) : Date.today
+      # @dat = Tracker.where('created_at > ? AND created_at < ?', @date.beginning_of_day, @date.end_of_month.end_of_day)
+      @dat=Tracker.where("uid=? and finished LIKE ?", user, "%#{@date.strftime("%-m-%y")}%")
+      stats=@dat.pluck("comp")
+      @this_month_neutral=stats.count("On Time")
+      @this_month_delay=stats.count("> ETA")
+      @this_month_early=stats.count("< ETA")
 
-  
-  # @dat_by_date = @dat.group_by(&:finished)
-  # @mon = { 1=>"January", 2=>"Februrary", 3 =>"March", 4=>"April", 
-  #           5=>"May", 6=>"June", 7=>"July", 8=>"Augest", 
-  #            9=>"September", 10=>"October", 11=>"November", 12=>"December"} 
-  #            p = Time.now
-  #    n = p.month
-  # @previous = @mon[n-1]
-  # @next = @mon[n+1] 
 
-    @trackers = Tracker.all
-    @ontime=Tracker.where("comp = ?", "On Time").count
-    @delay=Tracker.where("comp = ?", "> ETA").count
-    @early=Tracker.where("comp = ?", "< ETA").count
+      # @dat_by_date = @dat.group_by(&:finished)
+      # @mon = { 1=>"January", 2=>"Februrary", 3 =>"March", 4=>"April", 
+      #           5=>"May", 6=>"June", 7=>"July", 8=>"Augest", 
+      #            9=>"September", 10=>"October", 11=>"November", 12=>"December"} 
+      #            p = Time.now
+      #    n = p.month
+      # @previous = @mon[n-1]
+      # @next = @mon[n+1] 
+
+      @trackers = Tracker.where("uid=?", user)
+    #   @ontime=Tracker.where("comp = ?", "On Time").count
+    #   @delay=Tracker.where("comp = ?", "> ETA").count
+    # @early=Tracker.where("comp = ?", "< ETA").count
+    stats=@trackers.pluck("comp")
+    @ontime=stats.count("On Time")
+    @delay=stats.count("> ETA")
+    @early=stats.count("< ETA")
   end
 
   # def pending{
@@ -131,7 +138,7 @@ stats=@dat.pluck("comp")
 
     respond_to do |format|
       if @tracker.save
-        format.html { redirect_to :root, notice: 'Tracker was successfully created.' }
+        format.html { redirect_to :current, notice: 'Ticket was added successfully.' }
         format.json { render :index, status: :created, location: @tracker }
       else
         format.html { render :new }
@@ -145,7 +152,7 @@ stats=@dat.pluck("comp")
   def update
     respond_to do |format|
       if @tracker.update(tracker_params)
-        format.html { redirect_to @tracker, notice: 'Tracker was successfully updated.' }
+        format.html { redirect_to @tracker, notice: 'Ticket was successfully updated.' }
         format.json { render :show, status: :ok, location: @tracker }
       else
         format.html { render :edit }
@@ -187,7 +194,7 @@ end
 
   def remove
     Tracker.delete_all
-    redirect_to '/'
+    redirect_to '/home'
   end
 
   private
@@ -198,12 +205,7 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tracker_params
-      params.require(:tracker).permit(:ticket_id, :comp, :staging, :created, :eta, :finished, :tow, :owner, :noc, :disc)
+      params.require(:tracker).permit(:ticket_id, :comp, :staging, :created, :eta, :finished, :tow, :owner, :noc, :disc, :uid)
     end
-
-
-    def interlink
-    end
-
 
 end

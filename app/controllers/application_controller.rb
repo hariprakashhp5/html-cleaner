@@ -20,6 +20,27 @@ def require_editor
   redirect_to '/login' unless current_user.editor? 
 end
 
+def require_admin 
+  if current_user != nil
+  redirect_to '/login' unless current_user.admin? 
+else
+  redirect_to '/login'
+end
+end
+
+
+def user
+  if current_user !=nil
+    @@user=current_user.id 
+  #else
+    #redirect_to '/login'
+  end
+
+end
+# def admin_user
+#   if current_user.role==
+# end
+
  def pending
     @pendings=Tracker.where("finished=?", "")
     @p_count=@pendings.count

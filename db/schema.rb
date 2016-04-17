@@ -11,10 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160409142753) do
+ActiveRecord::Schema.define(version: 20160417165554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "add_uid_to_trackers", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "operators", force: :cascade do |t|
     t.integer  "region_id"
@@ -76,6 +81,16 @@ ActiveRecord::Schema.define(version: 20160409142753) do
     t.string   "disc"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "uid"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.string   "role"
+    t.string   "email"
+    t.string   "password_digest"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
 end
