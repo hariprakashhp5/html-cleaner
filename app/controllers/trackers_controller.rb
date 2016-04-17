@@ -90,20 +90,7 @@ end
       @this_month_delay=stats.count("> ETA")
       @this_month_early=stats.count("< ETA")
 
-
-      # @dat_by_date = @dat.group_by(&:finished)
-      # @mon = { 1=>"January", 2=>"Februrary", 3 =>"March", 4=>"April", 
-      #           5=>"May", 6=>"June", 7=>"July", 8=>"Augest", 
-      #            9=>"September", 10=>"October", 11=>"November", 12=>"December"} 
-      #            p = Time.now
-      #    n = p.month
-      # @previous = @mon[n-1]
-      # @next = @mon[n+1] 
-
-      @trackers = Tracker.where("uid=?", user)
-    #   @ontime=Tracker.where("comp = ?", "On Time").count
-    #   @delay=Tracker.where("comp = ?", "> ETA").count
-    # @early=Tracker.where("comp = ?", "< ETA").count
+      @trackers = Tracker.where("uid=?",user)
     stats=@trackers.pluck("comp")
     @ontime=stats.count("On Time")
     @delay=stats.count("> ETA")
@@ -138,7 +125,7 @@ end
 
     respond_to do |format|
       if @tracker.save
-        format.html { redirect_to :current, notice: 'Ticket was added successfully.' }
+        format.html { redirect_to '/home', notice: 'Ticket was added successfully.' }
         format.json { render :index, status: :created, location: @tracker }
       else
         format.html { render :new }

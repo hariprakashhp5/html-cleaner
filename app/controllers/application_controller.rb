@@ -42,7 +42,7 @@ end
 # end
 
  def pending
-    @pendings=Tracker.where("finished=?", "")
+    @pendings=Tracker.where("uid=? and finished=?", user,"")
     @p_count=@pendings.count
     return @p_count
 end
