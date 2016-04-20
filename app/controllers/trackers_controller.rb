@@ -100,8 +100,9 @@ class TrackersController < ApplicationController
   def status
     require_user
       @date = params[:month] ? Date.parse(params[:month]) : Date.today
+      my=@date.strftime("%-m-%y")
       # @dat = Tracker.where('created_at > ? AND created_at < ?', @date.beginning_of_day, @date.end_of_month.end_of_day)
-      @dat=Tracker.where("uid=? and finished LIKE ?", user, "%#{@date.strftime("%-m-%y")}%")
+      @dat=Tracker.where("uid=? and finished LIKE ? or finished Like ?", user, "%#{my}%", "#{@date.strftime("%m/%y")}")
       stats=@dat.pluck("comp")
       @this_month_neutral=stats.count("On Time")
       @this_month_delay=stats.count("> ETA")
