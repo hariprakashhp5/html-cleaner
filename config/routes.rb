@@ -6,8 +6,8 @@ Rails.application.routes.draw do
   get 'search' => 'application#search'
   
   #match 'wrapper' => 'trackers#testcod'#, via:[:get, :post]
-  get 'cleaner' => 'trackers#testcod'
-  post 'cleaner/done' => 'trackers#posttestcod'
+  get 'cleaner' => 'cleaner#testcod'
+  post 'cleaner/done' => 'cleaner#posttestcod'
   #get 'cleaner' => 'trackers#cleaner'
   # post 'cleaner' => 'trackers#htmlclnr'
 
