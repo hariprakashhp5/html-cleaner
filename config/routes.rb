@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   #match 'wrapper' => 'trackers#testcod'#, via:[:get, :post]
   get 'cleaner' => 'cleaner#testcod'
   post 'cleaner/done' => 'cleaner#posttestcod'
-  #get 'cleaner' => 'trackers#cleaner'
-  # post 'cleaner' => 'trackers#htmlclnr'
+  get 'nokocleaner' => 'trackers#testcod'
+  post 'nokocleaner/done' => 'trackers#posttestcod'
 
   resources :users
   get 'signup'  => 'users#new' 

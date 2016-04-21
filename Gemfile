@@ -59,3 +59,4 @@ gem 'msworddoc-extractor'#, :git =>'git://github.com/dayflower/msworddoc-extract
 gem 'yui-rails'
 gem 'tinymce-rails'
 gem 'sanitize'
+gem 'nokogiri'

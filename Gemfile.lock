@@ -199,6 +199,7 @@ DEPENDENCIES
   jquery-rails
   mechanize
   msworddoc-extractor
+  nokogiri
   pg
   puma
   rails (= 4.2.3)

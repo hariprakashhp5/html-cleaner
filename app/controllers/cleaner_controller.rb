@@ -6,37 +6,52 @@ end
 def posttestcod
 
 puts "vvvv=====#{params[:accept]}"
+# if params[:accept] == "1"
+# nogo={'<li> <p>' =>'<li>', '</p> </li>' => '</li>', 
+#       '<p> </p>' => '','</p>' => "</p>\n", '</li>' => "</li>\n", '</ul>' => "</ul>\n", '</ol>' => "</ol>\n",'</tr>' => "</tr>\n", 
+#       '<table>' => '<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-curved">', 
+#       '</table>'=>"</table>\n", '&lt;' => '<', '&gt;'=>'>', '</h1>' => "</h1>\n", '</h2>' => "</h2>\n", 
+#       '</h3>' => "</h3>\n", '<br>' => '','<p></p>' => '', ' rel="nofollow"' => '', '</td>' =>"</td>\n"}
+# else
+#   nogo={'<li> <p>' =>'<li>', '</p> </li>' => '</li>', '<td> <p>' => '<td>', '</p> </td>' => '</td>', 
+#       '<p> </p>' => '','</p>' => "</p>\n", '</li>' => "</li>\n", '</ul>' => "</ul>\n", '</ol>' => "</ol>\n",'</tr>' => "</tr>\n", 
+#       '<table>' => '<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-curved">', 
+#       '</table>'=>"</table>\n", '&lt;' => '<', '&gt;'=>'>', '</h1>' => "</h1>\n", '</h2>' => "</h2>\n", 
+#       '</h3>' => "</h3>\n", '<br>' => '','<p></p>' => '', ' rel="nofollow"' => '', '</td>' =>"</td>\n"}
+# end
+
 if params[:accept] == "1"
-nogo={'<li> <p>' =>'<li>', '</p> </li>' => '</li>', 
+nogo={"<li> \n<p>" =>'<li>', '</p> </li>' => '</li>', 
       '<p> </p>' => '','</p>' => "</p>\n", '</li>' => "</li>\n", '</ul>' => "</ul>\n", '</ol>' => "</ol>\n",'</tr>' => "</tr>\n", 
       '<table>' => '<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-curved">', 
       '</table>'=>"</table>\n", '&lt;' => '<', '&gt;'=>'>', '</h1>' => "</h1>\n", '</h2>' => "</h2>\n", 
       '</h3>' => "</h3>\n", '<br>' => '','<p></p>' => '', ' rel="nofollow"' => '', '</td>' =>"</td>\n"}
 else
-  nogo={'<li> <p>' =>'<li>', '</p> </li>' => '</li>', '<td> <p>' => '<td>', '</p> </td>' => '</td>', 
-      '<p> </p>' => '','</p>' => "</p>\n", '</li>' => "</li>\n", '</ul>' => "</ul>\n", '</ol>' => "</ol>\n",'</tr>' => "</tr>\n", 
-      '<table>' => '<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-curved">', 
-      '</table>'=>"</table>\n", '&lt;' => '<', '&gt;'=>'>', '</h1>' => "</h1>\n", '</h2>' => "</h2>\n", 
-      '</h3>' => "</h3>\n", '<br>' => '','<p></p>' => '', ' rel="nofollow"' => '', '</td>' =>"</td>\n"}
+  nogo={"<li>\n<p>" =>'<li>', "</p>\n</li>" => '</li>', "<td>\n<p>" => '<td>', "</p>\n</td>" => '</td>', 
+      '<p> </p>' => '','<ul>' => "\n<ul>",'</ul>' => "</ul>\n", '</ol>' => "</ol>\n"   , 
+      '<table>' => "\n<table width='100%' border='0' cellspacing='0' cellpadding='0' class='table table-curved'>", 
+     '&lt;' => '<', '&gt;'=>'>','<br>' => '','<p></p>' => '', ' rel="nofollow"' => '', "(https|http):\/\/www.bankbazaar.com"=>""}
 end
-
       
 
       
       c=params[:content]
        bundle_out=Sanitize.fragment(c,Sanitize::Config.merge(Sanitize::Config::BASIC,
        :elements=> Sanitize::Config::BASIC[:elements]+['table', 'tbody', 'tr', 'td', 'h1', 'h2', 'h3'],
-       :attributes=>{'a' => ['href']}) ).split(" ").join(" ")
+       :attributes=>{'a' => ['href']}) )#.split(" ").join(" ")
 
       re = Regexp.new(nogo.keys.map { |x| Regexp.escape(x) }.join('|'))
 
       puts "re====#{re}"
-      @bundle_out=bundle_out.gsub(re, nogo)
+      #@bundle_out=bundle_out.gsub(re, nogo)
+      inter=bundle_out.gsub(re, nogo)
+      doc=Nokogiri::HTML.fragment(inter)
+      @bundle_out=doc.inner_html
 
       open_tags= @bundle_out.scan(/</).count
       close_tags= @bundle_out.scan(/<\//).count
 
-      if open_tags/2 == close_tags
+      if open_tags.to_f/2 == close_tags.to_f
         @tags=["Open and close tags are equal"]
       else
         @p=@bundle_out.scan(/<p/).count
