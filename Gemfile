@@ -62,3 +62,4 @@ gem 'sanitize'
 gem 'nokogiri'
 gem 'chartkick'
 gem 'groupdate'
+gem 'rails_12factor', group: :production

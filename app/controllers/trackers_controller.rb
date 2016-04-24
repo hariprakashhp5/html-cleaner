@@ -23,6 +23,7 @@ class TrackersController < ApplicationController
   # end
 
   def chart_page
+    require_user
     a=Time.now 
     my=a.strftime("%-m-%y")
 
