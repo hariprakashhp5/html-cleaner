@@ -8,7 +8,7 @@ table {
 th {
   font-family: "Lucida Grande",arial,helvetica,sans-serif;
   font-size: 12px;
-  padding: 6px;
+  padding: 4px;
   border: 1px solid #999;
   background: #78ccb7;
   color: #00000;
@@ -21,9 +21,10 @@ th {
  text-align: center;
   background-color: #FFF;
   color: #424242;
-  height: 40px;
+  padding: 4px;
+ /* height: 40px;*/
   vertical-align: middle;
-  font-size: 14px;
+  font-size: 10px;
   border: 1px solid #999;
   /*width: 14.2857142857143%;*/
 
@@ -52,7 +53,7 @@ th {
 }
 
 .tdfield {
-  width:60px;
+  width:40px;
   text-align:center;
 
 }
@@ -73,6 +74,7 @@ th {
   text-align: center;
   float: right;
   margin: 5px 0 5px 5px;
+
 }
 .container{
   height:30px;
@@ -106,6 +108,9 @@ th {
 .pull-left{
   margin: 5px 5px 5px 0;
   float:left;
+  a{
+  color:red;
+  }
 }
 
 

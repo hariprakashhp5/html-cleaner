@@ -10,6 +10,11 @@ class TrackersController < ApplicationController
     @delay=stats.count("> ETA")
     @early=stats.count("< ETA")
     @trackers = Tracker.where('uid=?',user).order(created_at: :desc)
+    respond_to do |format|
+      format.html
+      format.csv { send_data @trackers.to_csv}
+      format.xls# { send_data @trackers.to_csv(col_sep: "\t")}
+    end
     
   end
 
@@ -124,25 +129,31 @@ end
     require_user
       @date = params[:month] ? Date.parse(params[:month]) : Date.today
       my=@date.strftime("%-m-%y")
+      puts my
       # @dat = Tracker.where('created_at > ? AND created_at < ?', @date.beginning_of_day, @date.end_of_month.end_of_day)
       @dat=Tracker.where("uid=? and finished LIKE ? or finished Like ?", user, "%#{my}%", "#{@date.strftime("%m/%y")}")
       stats=@dat.pluck("comp")
       @this_month_neutral=stats.count("On Time")
       @this_month_delay=stats.count("> ETA")
       @this_month_early=stats.count("< ETA")
-
+      @pen= Tracker.where("uid=? and finished=?",user, "")
       @trackers = Tracker.where("uid=?",user)
     stats=@trackers.pluck("comp")
     @ontime=stats.count("On Time")
     @delay=stats.count("> ETA")
     @early=stats.count("< ETA")
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @dat.to_csv}
+      format.xls# { send_data @trackers.to_csv(col_sep: "\t")}
+    end
+
   end
 
-  # def pending{
-  #   @pendings=Tracker.where("finished=?", "")
-  #   @p_count=@pendings.count
-  # }
-#end
+  def pending_tickets
+    @trackers=Tracker.where("uid=? and finished=?",user, "")
+  end
     # GET /trackers/1
   # GET /trackers/1.json
   def show

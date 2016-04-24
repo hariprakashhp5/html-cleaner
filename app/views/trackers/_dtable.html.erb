@@ -1,15 +1,9 @@
-<%= render :partial => "/trackers/form.html.erb"%>
-<p id="notice"><%= notice %></p>
+<%#= render :partial => "/trackers/form.html.erb"%>
 
-<h1 style="text-align:center;">Recent Tickets</h1>
+<h1 style="text-align:center;">Pending Tickets</h1>
 
-<div class="pull-left"><span>Pending:</span> <a href="/pending"><%=pending%></a></div>
+<div class="pull-left"><span>Pending:</span> <%=pending%></div>
 
-<div class="status"><span>Outbound:</span> <%=@delay%></div>
-
-<div class="status"><span>Neutral:</span> <%=@ontime%></div>
-
-<div class="status"><span>Inbound:</span> <%=@early%></div>
 
 
 <div style="clear:both"></div>
@@ -25,19 +19,19 @@
       <th>Type of Work</th>
       <th>No. of Commits</th>
       <th>Staging</th>
-      <th>Completed</th>
+    <!--   <th>Completed</th> -->
       <th>Description</th>
+      <th>Blurb</th>
       <th>Delete</th>
-     <!--  <th colspan="3"></th> -->
+      <!-- <th colspan="3"></th> -->
     </tr>
   </thead>
 
   <tbody>
     <% @trackers.each do |tracker| %>
       <tr>
-        <td><%=tracker.created_at.strftime("%d-%m-%y")%></td>
-        <td><a href="/trackers/<%=tracker.id%>"><%=tracker.ticket_id%></a>
-        <td width="20px;">   <a target="_blank" href="https://bankbazaarmail.zendesk.com/agent/tickets/<%= tracker.ticket_id%>">Open</a></td></td>
+        <td><%= tracker.created_at.strftime("%d-%m-%y")%></td>
+        <td ><%= best_in_place tracker, :ticket_id, :inner_class => "tdfield" %><td width="20px;">   <a target="_blank" href="https://bankbazaarmail.zendesk.com/agent/tickets/<%= tracker.ticket_id%>">Open</a></td></td>
         <td ><%= best_in_place tracker, :owner, :inner_class => "tdfield" %></td>
                   <td ><%= best_in_place tracker, :created, :inner_class => "tdfield" %></td>
         <td ><%= best_in_place tracker, :eta, :inner_class => "tdfield"%></td>
@@ -45,10 +39,11 @@
         <td ><%=  best_in_place tracker, :tow, :inner_class => "tdfield"%></td>
         <td ><%= best_in_place tracker, :noc, :inner_class => "tdfield"%></td>
         <td ><%= best_in_place tracker, :staging, :inner_class => "tdfield"%></td>
-        <td ><%= tracker.comp %></td>
+        <!-- <td ><%= tracker.comp %></td> -->
         <td ><%= best_in_place tracker, :disc, :as => :textarea%></td>
-        <!-- <td><%#= link_to 'Show', tracker %></td> -->
-              <td><%= link_to 'Destroy', tracker, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', tracker %></td>
+        <!-- <td><%#= link_to 'Edit', edit_tracker_path(tracker) %></td> -->
+        <td><%= link_to 'Destroy', tracker, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -56,4 +51,4 @@
 
 <br>
 
-
+<%#= link_to 'New Tracker', new_tracker_path %>

@@ -4,12 +4,14 @@ Rails.application.routes.draw do
   get 'status' => 'trackers#status'
   get 'delete_all' => 'trackers#remove'
   get 'search' => 'application#search'
-  
+  get    '/trackers/:id' => 'trackers#show'
   #match 'wrapper' => 'trackers#testcod'#, via:[:get, :post]
   get 'cleaner' => 'cleaner#testcod'
   post 'cleaner/done' => 'cleaner#posttestcod'
   get 'nokocleaner' => 'trackers#testcod'
   post 'nokocleaner/done' => 'trackers#posttestcod'
+  get 'pending' => 'trackers#pending_tickets'
+
 
   resources :users
   get 'signup'  => 'users#new' 

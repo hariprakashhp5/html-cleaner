@@ -28,6 +28,12 @@
     
   </h2>
 
+  <h5 style="text-align:center;">
+  Export:
+  <%= link_to "CSV", status_path(format: "csv") %> |
+  <%= link_to "Excel", status_path(format: "xls") %>
+</h5>
+
   <div class="pull-left">
   	<span>Total:</span> <%=@dat.count%>
   </div>
