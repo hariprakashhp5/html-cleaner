@@ -5,6 +5,7 @@
   <title>Tracker</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag "https://www.google.com/jsapi", "chartkick" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -12,6 +13,7 @@
 	<div class="top-left"><a href="/home">Home</a></div>
 	<div class="top-left"><a href="/trackers">All Tickets</a></div>
 	<div class="top-left"><a href="/status">Status</a></div>
+	<div class="top-left"><a href="/charts">Charts</a></div>
 	<div class="top-left"><a href="/cleaner">Cleaner</a></div>
 	<div class="top-left"><a href="/nokocleaner">Cleaner-2</a></div>
 	

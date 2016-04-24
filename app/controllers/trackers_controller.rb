@@ -18,6 +18,17 @@ class TrackersController < ApplicationController
     
   end
 
+  # def completed_tasks
+  # render json: Task.group_by_day(:created_at).count.chart_json
+  # end
+
+  def chart_page
+    a=Time.now 
+    my=a.strftime("%-m-%y")
+
+    @pie=Tracker.where('uid=? and created like ?',user, "%#{my}%")
+  end
+
   def current
     require_user
     @tracker = Tracker.new

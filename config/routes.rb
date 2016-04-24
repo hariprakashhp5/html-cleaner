@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'nokocleaner' => 'trackers#testcod'
   post 'nokocleaner/done' => 'trackers#posttestcod'
   get 'pending' => 'trackers#pending_tickets'
+  get 'charts' => 'trackers#chart_page'
 
 
   resources :users
