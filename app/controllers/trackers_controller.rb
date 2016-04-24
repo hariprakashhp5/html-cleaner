@@ -143,7 +143,7 @@ end
       my=@date.strftime("%-m-%y")
       puts my
       # @dat = Tracker.where('created_at > ? AND created_at < ?', @date.beginning_of_day, @date.end_of_month.end_of_day)
-      @dat=Tracker.where("uid=? and finished LIKE ? or finished Like ?", user, "%#{my}%", "#{@date.strftime("%m/%y")}")
+      @dat=Tracker.where("uid=? and finished LIKE ? or finished Like ?", user, "%#{my}%", "#{@date.strftime("%m/%y")}").order(created_at: :asc)
       stats=@dat.pluck("comp")
       @this_month_neutral=stats.count("On Time")
       @this_month_delay=stats.count("> ETA")
