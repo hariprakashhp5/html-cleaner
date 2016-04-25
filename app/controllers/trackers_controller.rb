@@ -45,46 +45,24 @@ def testcod
 end
 
 def posttestcod
-    #@bundle_out=params[:content]
-    #@bundle_out=params[:content].gsub(/(?:style|class|width|cellspacing|cellpadding|valign)="[\p{Print}]+"/,"")
-    #@bundle_out=bundle_out.gsub(/<[[:alpha:]]+(>| >)(\\s|&nbsp;)+<\/[[:alpha:]]+>/,"").split(" ").join(" "), <li>.*<p>
-#c= "<li>\s*?<p>"    ktdp => vtdp, kptd => vptd,
-
-
-puts "vvvv=====#{params[:accept]}"
-# if params[:accept] == "1"
-# nogo={'<li> <p>' =>'<li>', '</p> </li>' => '</li>', 
-#       '<p> </p>' => '','</p>' => "</p>\n", '</li>' => "</li>\n", '</ul>' => "</ul>\n", '</ol>' => "</ol>\n",'</tr>' => "</tr>\n", 
-#       '<table>' => '<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-curved">', 
-#       '</table>'=>"</table>\n", '&lt;' => '<', '&gt;'=>'>', '</h1>' => "</h1>\n", '</h2>' => "</h2>\n", 
-#       '</h3>' => "</h3>\n", '<br>' => '','<p></p>' => '', ' rel="nofollow"' => '', '</td>' =>"</td>\n"}
-# else
-#   nogo={'<li> <p>' =>'<li>', '</p> </li>' => '</li>', '<td> <p>' => '<td>', '</p> </td>' => '</td>', 
-#       '<p> </p>' => '','</p>' => "</p>\n", '</li>' => "</li>\n", '</ul>' => "</ul>\n", '</ol>' => "</ol>\n",'</tr>' => "</tr>\n", 
-#       '<table>' => '<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-curved">', 
-#       '</table>'=>"</table>\n", '&lt;' => '<', '&gt;'=>'>', '</h1>' => "</h1>\n", '</h2>' => "</h2>\n", 
-#       '</h3>' => "</h3>\n", '<br>' => '','<p></p>' => '', ' rel="nofollow"' => '', '</td>' =>"</td>\n"}
-# end
 
 if params[:accept] == "1"
-nogo={"<li> \n<p>" =>'<li>', '</p> </li>' => '</li>', 
-      '<p> </p>' => '','</p>' => "</p>\n", '</li>' => "</li>\n", '</ul>' => "</ul>\n", '</ol>' => "</ol>\n",'</tr>' => "</tr>\n", 
-      '<table>' => '<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-curved">', 
-      '</table>'=>"</table>\n", '&lt;' => '<', '&gt;'=>'>', '</h1>' => "</h1>\n", '</h2>' => "</h2>\n", 
-      '</h3>' => "</h3>\n", '<br>' => '','<p></p>' => '', ' rel="nofollow"' => '', '</td>' =>"</td>\n"}
+      path=["//ul/li/p"]
 else
-  nogo={'<p> </p>' => '','<ul>' => "\n<ul>",'</ul>' => "</ul>\n", '</ol>' => "</ol>\n"   , 
-      '<table>' => "\n<table width='100%' border='0' cellspacing='0' cellpadding='0' class='table table-curved'>", 
-     '&lt;' => '<', '&gt;'=>'>','<br>' => '','<p></p>' => '', ' rel="nofollow"' => '', "(https|http):\/\/www.bankbazaar.com"=>""}
+      path=["//table/tbody/tr/td/p", "//ul/li/p"]
 end
 
-      
+    nogo={'<p> </p>' => '', 
+      '<table>' => "\n<table width='100%' border='0' cellspacing='0' cellpadding='0' class='table table-curved'>", 
+     '&lt;' => '<', '&gt;'=>'>','<br>' => '','<p></p>' => '', ' rel="nofollow"' => '', "http://www.bankbazaar.com"=>"",
+        "https://www.bankbazaar.com"=>"",'<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">'=>"",
+          "<html><body>"=>"","</body></html>"=>""}  
 
       
       c=params[:content]
        bundle_out=Sanitize.fragment(c,Sanitize::Config.merge(Sanitize::Config::BASIC,
        :elements=> Sanitize::Config::BASIC[:elements]+['table', 'tbody', 'tr', 'td', 'h1', 'h2', 'h3'],
-       :attributes=>{'a' => ['href']}) )#.split(" ").join(" ")
+       :attributes=>{'a' => ['href']}) )
 
       re = Regexp.new(nogo.keys.map { |x| Regexp.escape(x) }.join('|'))
 
@@ -92,14 +70,15 @@ end
       intr=bundle_out.gsub(re, nogo)
 
       doc=Nokogiri::HTML.parse(intr)
-      path=["//table/tbody/tr/td/p", "//ul/li/p"]
+      
       path.each do |p|
         puts p
         doc.xpath(p).each do |pp|
           pp.replace(pp.text)
         end
       end
-      @bundle_out=doc.to_html
+      filter=doc.to_html
+      @bundle_out=filter.gsub(re,nogo)
 
 
       open_tags= @bundle_out.scan(/</).count

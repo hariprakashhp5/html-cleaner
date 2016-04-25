@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   get    '/trackers/:id' => 'trackers#show'
   #match 'wrapper' => 'trackers#testcod'#, via:[:get, :post]
   get 'cleaner' => 'cleaner#testcod'
-  post 'cleaner/done' => 'cleaner#posttestcod'
+  match 'cleaner/done' => 'cleaner#posttestcod', via:[:get, :post]
+  post 'cleaner/raw'=>'cleaner#htmlraw'
   get 'nokocleaner' => 'trackers#testcod'
   post 'nokocleaner/done' => 'trackers#posttestcod'
   get 'pending' => 'trackers#pending_tickets'
