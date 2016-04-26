@@ -223,6 +223,7 @@ end
   end
 
   def remove
+    require_admin
     Tracker.delete_all
     redirect_to '/home'
   end
