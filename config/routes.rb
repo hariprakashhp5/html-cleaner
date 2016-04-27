@@ -24,7 +24,13 @@ Rails.application.routes.draw do
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
   root :to => 'sessions#new'
-   
+
+  #resources :dashboard
+  get 'dashboard'=>'dashboard#index'
+  get '/dashboard/outbound' =>'dashboard#outbound' 
+  get '/dashboard/neutral' =>'dashboard#neutral'
+  get '/dashboard/inbound' =>'dashboard#inbound'
+  post '/assign' => 'dashboard#assign'
 
   
   # The priority is based upon order of creation: first created -> highest priority.
