@@ -99,17 +99,17 @@ if params[:accept] == "1"
 nogo={"<li>\n<p>" =>'<li>', "</p>\n</li>" => '</li>', 
       '<p> </p>' => '', '<ul>' => "\n<ul>", '</ul>' => "</ul>\n", '</ol>' => "</ol>\n", 
       '<table>' => "\n<table width='100%' border='0' cellspacing='0' cellpadding='0' class='table table-curved'>", 
-      '&lt;' => '<', '&gt;'=>'>', '<br>' => '','<p></p>' => '', ' rel="nofollow"' => '',
-      "https://www.bankbazaar.com"=>"", "http://www.bankbazaar.com"=>"", '&amp;'=>'&'}
+      '<br>' => '','<p></p>' => '', ' rel="nofollow"' => '',
+      "https://www.bankbazaar.com"=>"", "http://www.bankbazaar.com"=>""}
 else
   nogo={"<li>\n<p>" =>'<li>', "</p>\n</li>" => '</li>', "<td>\n<p>" => '<td>', "</p>\n</td>" => '</td>', 
-      '<p> </p>' => '','<ul>' => "\n<ul>",'</ul>' => "</ul>\n", '</ol>' => "</ol>\n", '&amp;'=>'&',
+      '<p> </p>' => '','<ul>' => "\n<ul>",'</ul>' => "</ul>\n", '</ol>' => "</ol>\n",
       '<table>' => "\n<table width='100%' border='0' cellspacing='0' cellpadding='0' class='table table-curved'>", 
-     '&lt;' => '<', '&gt;'=>'>','<br>' => '','<p></p>' => '', ' rel="nofollow"' => '', 
-     "https://www.bankbazaar.com"=>"", "http://www.bankbazaar.com"=>"", '&amp;'=>'&'}
+     '<br>' => '','<p></p>' => '', ' rel="nofollow"' => '', 
+     "https://www.bankbazaar.com"=>"", "http://www.bankbazaar.com"=>""}
 end
       
-
+  nogotwo={'&amp;'=>'&', '&lt;' => '<', '&gt;'=>'>'}
       
       c=params[:content]
        bundle_out=Sanitize.fragment(c,Sanitize::Config.merge(Sanitize::Config::BASIC,
@@ -125,7 +125,8 @@ end
      # @bundle_out=doc.inner_html
       fltr1=doc.inner_html
       fltr2=fltr1.gsub(/<(\w+)(?:\s+\w+="[^"]+(?:"\$[^"]+"[^"]+)?")*>\s*<\/\1>/,"")#to remove empty p tags
-      @bundle_out=fltr2.gsub(re, nogo)
+      rex= Regexp.new(nogotwo.keys.map { |x| Regexp.escape(x) }.join('|')) 
+      @bundle_out=fltr2.gsub(rex, nogotwo)
 
       open_tags= @bundle_out.scan(/</).count
       close_tags= @bundle_out.scan(/<\//).count

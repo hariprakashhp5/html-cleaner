@@ -28,6 +28,14 @@ else
 end
 end
 
+def require_qc_or_admin 
+  if current_user != nil
+  redirect_to '/login' unless current_user.admin? || current_user.qc?
+else
+  redirect_to '/login'
+end
+end
+
 
 def user
   if current_user !=nil
@@ -37,9 +45,6 @@ def user
   end
 
 end
-# def admin_user
-#   if current_user.role==
-# end
 
  def pending
     @pendings=Tracker.where("uid=? and finished=?", user,"")

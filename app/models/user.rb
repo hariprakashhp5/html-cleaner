@@ -8,4 +8,8 @@ class User < ActiveRecord::Base
 	def admin?
 		self.role == '1'
 	end
+
+	def qc?
+		self.role == '3'
+	end
 end
