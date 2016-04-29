@@ -10,28 +10,26 @@
 </head>
 <body>
 	<div class="container">
+	
+	<%if current_user%>
 	<div class="top-left"><a href="/home">Home</a></div>
 	<div class="top-left"><a href="/trackers">All Tickets</a></div>
 	<div class="top-left"><a href="/status">Status</a></div>
 	<div class="top-left"><a href="/charts">Charts</a></div>
-	<div class="top-left"><a href="/cleaner">Cleaner</a></div>
-	<%if current_user%>
-	<%if current_user.admin?%>
+	<%if current_user.admin? || current_user.dev?%>
+	<div class="top-right"><a href="/users">Users</a></div>
 	<div class="top-left"><a href="/dashboard">Dashboard</a></div>
 	<%else%>
 	<div class="top-left"><a href="/nokocleaner">Cleaner-2</a></div>
-	<%end%><%end%>
-
-	<%if current_user%>
-	<div class="top-right"><%= link_to "Logout", logout_path, method: "delete" %> </div>
-	<%if current_user.admin?%>
-	<div class="top-right"><a href="/users">Users</a></div>
 	<%end%>
+	<div class="top-left"><a href="/news">News</a></div>
+	<div class="top-right"><%= link_to "Logout", logout_path, method: "delete" %> </div>
+	
 	<%else%>
 	<div class="top-right"><a href="/login">Login</a></div>
 	<div class="top-right"><a href="/signup">Signup</a></div>
 	<%end%>
-
+	<div class="top-left"><a href="/cleaner">Cleaner</a></div>
 	
 <%#= form_tag url_for(:controller=>"application",:action =>"search") ,:method=>"get" do %>
 	<!-- <input style="width:120px; float:right;" name="ticket_id" ></input>

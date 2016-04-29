@@ -147,3 +147,29 @@ margin-top: 6px;
   border: 1px solid #999;
   margin: 0 10px 10px 10px;
 }
+
+#textarea {
+    -moz-appearance: textfield-multiline;
+    -webkit-appearance: textarea;
+    border: 1px solid gray;
+    font: medium -moz-fixed;
+    font: -webkit-small-control;
+    height: 412px;
+    overflow: auto;
+    padding: 2px;
+    resize: both;
+    width: 700px;
+}
+
+#textarea2 {
+    -moz-appearance: textfield-multiline;
+    -webkit-appearance: textarea;
+    border: 1px solid gray;
+    font: medium -moz-fixed;
+    font: -webkit-small-control;
+    height: 590px;
+    overflow: auto;
+    padding: 2px;
+    resize: both;
+    width: 695px;
+}

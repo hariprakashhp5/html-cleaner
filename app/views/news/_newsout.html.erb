@@ -1,0 +1,19 @@
+<%if @page == nil%>
+<%if @newsad == "1"%>
+&lt;div class="row news-widget"&gt; &lt;h2 class="tcenter btm-pad"&gt;<%=@newsT.first%>&lt;/h2&gt; &lt;ul&gt;
+<%end%>
+&lt;li class="news-green"&gt; 
+&lt;h2 class="news-head"&gt;<%=@newsH.first%>&lt;/h2&gt;
+<%=@newsC%>
+&lt;div class="pull-right"&gt; &lt;p&gt;&lt;img src="/images/bb-logo.png" alt=""&gt;&lt;/p&gt; 
+&lt;p&gt;&lt;em&gt;
+<%=@newsD.first%>
+&lt;/em&gt;&lt;/p&gt; &lt;/div&gt; &lt;div class="clearfix"&gt;&lt;/div&gt; &lt;/li&gt;
+<%if @newsad == "1"%>
+&lt;/ul&gt; &lt;/div&gt;
+<%end%>
+<%else%>
+bla bla
+<%end%>
+
+

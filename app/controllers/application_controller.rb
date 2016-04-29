@@ -36,6 +36,14 @@ else
 end
 end
 
+def require_dev
+  if current_user !=nil
+    redirect_to '/login' unless current_user.dev?
+  else
+    redirect_to '/login'
+  end
+end
+
 
 def user
   if current_user !=nil

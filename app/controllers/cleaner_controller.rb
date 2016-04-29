@@ -81,53 +81,61 @@ end
 def posttestcod
 
 puts "vvvv=====#{params[:accept]}"
+
 # if params[:accept] == "1"
-# nogo={'<li> <p>' =>'<li>', '</p> </li>' => '</li>', 
-#       '<p> </p>' => '','</p>' => "</p>\n", '</li>' => "</li>\n", '</ul>' => "</ul>\n", '</ol>' => "</ol>\n",'</tr>' => "</tr>\n", 
-#       '<table>' => '<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-curved">', 
-#       '</table>'=>"</table>\n", '&lt;' => '<', '&gt;'=>'>', '</h1>' => "</h1>\n", '</h2>' => "</h2>\n", 
-#       '</h3>' => "</h3>\n", '<br>' => '','<p></p>' => '', ' rel="nofollow"' => '', '</td>' =>"</td>\n"}
+# nogo={"<li>\n<p>" =>'<li>', "</p>\n</li>" => '</li>', 
+#       '<p> </p>' => '', '<ul>' => "\n<ul>", '</ul>' => "</ul>\n", '</ol>' => "</ol>\n", 
+#       '<table>' => "\n<table width='100%' border='0' cellspacing='0' cellpadding='0' class='table table-curved'>", 
+#       '<br>' => '','<p></p>' => '', ' rel="nofollow"' => '',
+#       "https://www.bankbazaar.com"=>"", "http://www.bankbazaar.com"=>""}
 # else
-#   nogo={'<li> <p>' =>'<li>', '</p> </li>' => '</li>', '<td> <p>' => '<td>', '</p> </td>' => '</td>', 
-#       '<p> </p>' => '','</p>' => "</p>\n", '</li>' => "</li>\n", '</ul>' => "</ul>\n", '</ol>' => "</ol>\n",'</tr>' => "</tr>\n", 
-#       '<table>' => '<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-curved">', 
-#       '</table>'=>"</table>\n", '&lt;' => '<', '&gt;'=>'>', '</h1>' => "</h1>\n", '</h2>' => "</h2>\n", 
-#       '</h3>' => "</h3>\n", '<br>' => '','<p></p>' => '', ' rel="nofollow"' => '', '</td>' =>"</td>\n"}
+#   nogo={"<li>\n<p>" =>'<li>', "</p>\n</li>" => '</li>', "<td>\n<p>" => '<td>', "</p>\n</td>" => '</td>', 
+#       '<p> </p>' => '','<ul>' => "\n<ul>",'</ul>' => "</ul>\n", '</ol>' => "</ol>\n",
+#       '<table>' => "\n<table width='100%' border='0' cellspacing='0' cellpadding='0' class='table table-curved'>", 
+#      '<br>' => '','<p></p>' => '', ' rel="nofollow"' => '', 
+#      "https://www.bankbazaar.com"=>"", "http://www.bankbazaar.com"=>""}
 # end
 
+# nogotwo={'&amp;'=>'&', '&lt;' => '<', '&gt;'=>'>'}
+
+# if params[:accept] == "1"
+# nogo={"<li>\n<p>" =>'<li>', "</p>\n</li>" => '</li>'}
+# else
+#   nogo={"<li>\n<p>" =>'<li>', "</p>\n</li>" => '</li>', "<td>\n<p>" => '<td>', "</p>\n</td>" => '</td>'}
+# end
+
+#######################----BB-FILTERS----######################
 if params[:accept] == "1"
-nogo={"<li>\n<p>" =>'<li>', "</p>\n</li>" => '</li>', 
-      '<p> </p>' => '', '<ul>' => "\n<ul>", '</ul>' => "</ul>\n", '</ol>' => "</ol>\n", 
-      '<table>' => "\n<table width='100%' border='0' cellspacing='0' cellpadding='0' class='table table-curved'>", 
-      '<br>' => '','<p></p>' => '', ' rel="nofollow"' => '',
-      "https://www.bankbazaar.com"=>"", "http://www.bankbazaar.com"=>""}
+  filterone={"<li>\n<p>" =>'<li>',"</p>\n</li>" => '</li>','<br>' => ''}
 else
-  nogo={"<li>\n<p>" =>'<li>', "</p>\n</li>" => '</li>', "<td>\n<p>" => '<td>', "</p>\n</td>" => '</td>', 
-      '<p> </p>' => '','<ul>' => "\n<ul>",'</ul>' => "</ul>\n", '</ol>' => "</ol>\n",
-      '<table>' => "\n<table width='100%' border='0' cellspacing='0' cellpadding='0' class='table table-curved'>", 
-     '<br>' => '','<p></p>' => '', ' rel="nofollow"' => '', 
-     "https://www.bankbazaar.com"=>"", "http://www.bankbazaar.com"=>""}
+  filterone={"<li>\n<p>" =>'<li>', "</p>\n</li>" => '</li>', "<td>\n<p>" => '<td>', "</p>\n</td>" => '</td>', '<br>' => ''}
 end
       
-  nogotwo={'&amp;'=>'&', '&lt;' => '<', '&gt;'=>'>'}
-      
+  filtertwo={'&amp;'=>'&', '&lt;' => '<', '&gt;'=>'>','<p> </p>' => '','<ul>' => "\n<ul>",'</ul>' => "</ul>\n", '</ol>' => "</ol>\n",
+           '<table>' => "\n<table width='100%' border='0' cellspacing='0' cellpadding='0' class='table table-curved'>", 
+           '<br>' => '','<p></p>' => '', ' rel="nofollow"' => '', "https://www.bankbazaar.com"=>"", "http://www.bankbazaar.com"=>"", 
+           '<h2><strong>'=>'<h2>','</strong></h2>'=>'</h2>','<h1><strong>'=>'<h1>', '</strong></h1>'=>'</h1>','<h3><strong>'=>'h3',
+           '</strong></h3>'=>'</h3>'}
+#############################################################
+
+    #####################----MAIN HTML CONVERSION CODE----######################  
       c=params[:content]
        bundle_out=Sanitize.fragment(c,Sanitize::Config.merge(Sanitize::Config::BASIC,
-       :elements=> Sanitize::Config::BASIC[:elements]+['table', 'tbody', 'tr', 'td', 'h1', 'h2', 'h3'],
-       :attributes=>{'a' => ['href']}) )#.split(" ").join(" ")
+       :elements=> Sanitize::Config::BASIC[:elements]+['table', 'tbody', 'tr', 'td', 'h1', 'h2', 'h3']))#.split(" ").join(" ")
+    ############################################################################
 
-      re = Regexp.new(nogo.keys.map { |x| Regexp.escape(x) }.join('|')) 
 
-      puts "re====#{re}"
-      #@bundle_out=bundle_out.gsub(re, nogo)
-      inter=bundle_out.gsub(re, nogo) #bb format is being done here
+####################----BB FORMATING IS HAPPENING THROUGH BELOW CODES----#########################
+      re = Regexp.new(filterone.keys.map { |x| Regexp.escape(x) }.join('|')) 
+      inter=bundle_out.gsub(re, filterone) #bb format is being done here
       doc=Nokogiri::HTML.fragment(inter) #to take care of mismatched open and close tags
-     # @bundle_out=doc.inner_html
-      fltr1=doc.inner_html
-      fltr2=fltr1.gsub(/<(\w+)(?:\s+\w+="[^"]+(?:"\$[^"]+"[^"]+)?")*>\s*<\/\1>/,"")#to remove empty p tags
-      rex= Regexp.new(nogotwo.keys.map { |x| Regexp.escape(x) }.join('|')) 
-      @bundle_out=fltr2.gsub(rex, nogotwo)
+      fltrd1=doc.inner_html
+      fltrd2=fltrd1.gsub(/<(\w+)(?:\s+\w+="[^"]+(?:"\$[^"]+"[^"]+)?")*>\s*<\/\1>/,"")#to remove empty p tags
+      rex= Regexp.new(filtertwo.keys.map { |x| Regexp.escape(x) }.join('|')) 
+      @bundle_out=fltrd2.gsub(rex, filtertwo) #FINAL OUTPUT
+##################################################################################################
 
+####################----TAG COUNT----#####################
       open_tags= @bundle_out.scan(/</).count
       close_tags= @bundle_out.scan(/<\//).count
 
@@ -157,8 +165,9 @@ end
         @error=bar<<var
         end
         end
-        @tags=@error
+        @tags=@error #FINAL O/P FOR TAG COUNT
         end
+###########################################################
 end
 
 

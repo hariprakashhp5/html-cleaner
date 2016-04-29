@@ -10,7 +10,7 @@
 </div>-->
 
 <div class="half-one">
-	
+	<h3 style="text-align:center;">TEXT INPUT</h3>
 <%= form_tag url_for(:controller=>"cleaner",:action =>"posttestcod"),remote:true  do %>
 <%= check_box_tag 'accept'%>
 <%= label_tag(:allowed, "Allow <p> inside <td>") %>
@@ -25,9 +25,10 @@
 
 
 <div id="test" class="half-one">
-	<span>HTML:</span><span class="nums"></span><br />
-	<textarea class="half-two"></textarea>
+	<span><h3>HTML:</h3></span><span class="nums"></span><br />
+	<textarea id="textarea2"></textarea>
 	</div>
 <div style="clear:both"></div>
+<h3 style="text-align:center;">HTML OUTPUT</h3>
 <div id="op">
 </div>

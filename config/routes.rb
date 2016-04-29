@@ -32,6 +32,9 @@ Rails.application.routes.draw do
   get '/dashboard/inbound' =>'dashboard#inbound'
   post '/assign' => 'dashboard#assign'
 
+  get 'news'=>'news#new'
+  post '/news/generated'=>'news#news_gen'
+
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

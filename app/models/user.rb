@@ -12,4 +12,8 @@ class User < ActiveRecord::Base
 	def qc?
 		self.role == '3'
 	end
+
+	def dev?
+		self.role == '-1'
+	end
 end
