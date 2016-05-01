@@ -4,7 +4,7 @@ class NewsController < ApplicationController
 	end
 
 	def new
-
+		require_dev
 	end
 
 	def news_gen

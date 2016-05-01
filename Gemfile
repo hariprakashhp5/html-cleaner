@@ -47,19 +47,17 @@ gem 'best_in_place'
 
 gem 'puma'
 
-gem 'docx', '~> 0.2.07'
-
 gem 'selenium-webdriver', '~> 2.48'
 
 gem 'mechanize'
 
-#gem 'text-format', '~> 1.0'
-
 gem 'msworddoc-extractor'#, :git =>'git://github.com/dayflower/msworddoc-extractor.git'
-gem 'yui-rails'
 gem 'tinymce-rails'
 gem 'sanitize'
 gem 'nokogiri'
 gem 'chartkick'
 gem 'groupdate'
+gem 'codemirror-rails'
+gem 'ace-rails-ap', '~> 4.0', '>= 4.0.1'
+gem 'gon'
 gem 'rails_12factor', group: :production

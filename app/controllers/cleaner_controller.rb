@@ -3,7 +3,8 @@ class CleanerController < ApplicationController
 def testcod
 end
 
-
+def test
+end
 # def posttestcod
 
 # if params[:accept] == "1"
@@ -133,6 +134,7 @@ end
       fltrd2=fltrd1.gsub(/<(\w+)(?:\s+\w+="[^"]+(?:"\$[^"]+"[^"]+)?")*>\s*<\/\1>/,"")#to remove empty p tags
       rex= Regexp.new(filtertwo.keys.map { |x| Regexp.escape(x) }.join('|')) 
       @bundle_out=fltrd2.gsub(rex, filtertwo) #FINAL OUTPUT
+      gon.products=@bundle_out 
 ##################################################################################################
 
 ####################----TAG COUNT----#####################

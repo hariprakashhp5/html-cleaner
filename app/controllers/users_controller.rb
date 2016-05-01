@@ -5,7 +5,7 @@ def new
 end
 
 def index
-	require_admin 
+require_dev_or_admin
 @users=User.all
 end
 

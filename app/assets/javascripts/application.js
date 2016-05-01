@@ -15,5 +15,24 @@
 //= require jquery.purr
 //= require best_in_place
 //= require turbolinks
+//= require codemirror
+//= require codemirror/modes/xml
+//= require codemirror/modes/htmlmixed
+//= require codemirror/modes/javascript
+//= require codemirror/modes/ruby
+//= require codemirror/modes/haml
+//= require ace-rails-ap
+//= require ace/mode-html
 //= require_tree .
 
+
+
+// $(document).ready(function() {
+//     $('#editor').each(function() {
+//          var editor = CodeMirror.fromTextArea(this, {
+//              lineNumbers : true,
+//              theme: "railscasts",
+//     mode: "text/html",
+//          });
+//      })
+// })

@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   get 'news'=>'news#new'
   post '/news/generated'=>'news#news_gen'
 
+get 'test1' =>'cleaner#test'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

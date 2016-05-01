@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 	<%= favicon_link_tag %>
   <title>Tracker</title>
+  <%= include_gon %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag "https://www.google.com/jsapi", "chartkick" %>
+  <%= javascript_include_tag "https://codemirror.net/addon/edit/matchtags.js", "matchTags" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -22,7 +25,9 @@
 	<%else%>
 	<div class="top-left"><a href="/nokocleaner">Cleaner-2</a></div>
 	<%end%>
+	<%if current_user.dev?%>
 	<div class="top-left"><a href="/news">News</a></div>
+	<%end%>
 	<div class="top-right"><%= link_to "Logout", logout_path, method: "delete" %> </div>
 	
 	<%else%>

@@ -20,6 +20,11 @@ def require_editor
   redirect_to '/login' unless current_user.editor? 
 end
 
+def require_dev
+  redirect_to '/login' unless current_user.dev? 
+end
+
+
 def require_admin 
   if current_user != nil
   redirect_to '/login' unless current_user.admin? 
@@ -36,9 +41,9 @@ else
 end
 end
 
-def require_dev
+def require_dev_or_admin
   if current_user !=nil
-    redirect_to '/login' unless current_user.dev?
+    redirect_to '/login' unless current_user.admin? || current_user.dev?
   else
     redirect_to '/login'
   end
